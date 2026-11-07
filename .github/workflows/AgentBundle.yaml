@@ -8,14 +8,12 @@ on:
                 description: Build environment
                 required: true
                 default: Development
-env: 
-    BUILD_SCRIPTS_DIR: "./.github/workflows/builds/"
 jobs:
     agentBuild:
         runs-on: windows-latest
         steps:
         - uses: actions/checkout@v6
-        - run: ${{ vars.BUILD_SCRIPTS_DIR}}Build.ps1 -Environment "${{ inputs.environment }}"
+        - run: ./.github/workflows/builds/Build.ps1 -Environment "${{ inputs.environment }}"
 
 
     
