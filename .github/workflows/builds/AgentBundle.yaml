@@ -2,12 +2,12 @@ name: AgentBuildBundle
 
 run-name: ${{ github.actor }}-${{ github.run_id}}
 on: 
-    workflow_dipatch
+    workflow_dispatch
 
 jobs:
     agentBuild:
-    runs-on: windows-latest
-    steps:
+        runs-on: windows-latest
+        steps:
         - uses: actions/checkout@v6
         - run: .\Build.ps1
 
