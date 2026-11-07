@@ -1,15 +1,20 @@
 name: AgentBuildBundle
 
 run-name: ${{ github.actor }}-${{ github.run_id}}
-on: 
-    workflow_dispatch
+on:
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: Build environment
+                required: true
+                default: Development
 
 jobs:
     agentBuild:
         runs-on: windows-latest
         steps:
         - uses: actions/checkout@v6
-        - run: Build.ps1
+        - run: ./.github/workflows/Build.ps1 -Environment "${{ inputs.environment }}"
 
 
     
