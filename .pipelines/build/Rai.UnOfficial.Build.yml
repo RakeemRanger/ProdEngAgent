@@ -1,0 +1,38 @@
+name: Ranger-AI-Unofficial-Build-$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger: none
+pr: none
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+
+  - script: |
+      set -euo pipefail
+      az bicep install
+      python3 .pipelines/build/build.py
+      test -s dist/infra/main.json
+    workingDirectory: $(Build.SourcesDirectory)
+    displayName: Build infrastructure
+
+  - script: |
+      set -euo pipefail
+      curl -fsSL https://github.com/microsoft/sbom-tool/releases/download/v4.1.5/sbom-tool-linux-x64 -o "$(Agent.TempDirectory)/sbom-tool"
+      chmod +x "$(Agent.TempDirectory)/sbom-tool"
+      "$(Agent.TempDirectory)/sbom-tool" generate \
+        -b "$(Build.SourcesDirectory)/dist/infra" \
+        -bc "$(Build.SourcesDirectory)/src/infra" \
+        -pn rai-infrastructure \
+        -pv "$(Build.BuildId)" \
+        -ps "Ranger AI" \
+        -nsb https://github.com/RakeemRanger/ProdEngAgent
+    displayName: Generate SBOM
+
+  - task: PublishPipelineArtifact@1
+    displayName: Publish infrastructure artifact
+    inputs:
+      targetPath: $(Build.SourcesDirectory)/dist/infra
+      artifact: infrastructure
+      publishLocation: pipeline

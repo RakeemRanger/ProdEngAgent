@@ -27,7 +27,7 @@ def build_infra():
         bicep_build = run_cmd(cmds)
         if bicep_build[0] == 'failed':
             print(f"build failed: {bicep_build[1]}")
-            sys.exit()
+            sys.exit(1)
         if Path(DEST_FILE).exists():
             print("Bicep Compiled to ARM successfully")
     except Exception:
