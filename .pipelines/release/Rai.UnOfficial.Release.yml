@@ -1,0 +1,36 @@
+trigger: none
+pr: none
+
+resources:
+  pipelines:
+    - pipeline: build
+      source: 'Rai Unofficial Build'
+      trigger: none
+
+stages:
+  - stage: Deploy
+    jobs:
+      - deployment: DeployInfra
+        environment: development
+        pool:
+          vmImage: ubuntu-latest
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: none
+
+                - download: build
+                  artifact: infrastructure
+
+                - task: AzureCLI@2
+                  displayName: Deploy ARM template
+                  inputs:
+                    azureSubscription: '<Azure service connection name>'
+                    scriptType: bash
+                    scriptLocation: inlineScript
+                    inlineScript: |
+                      set -euo pipefail
+                      az deployment sub create \
+                        --location eastus \
+                        --template-file "$(Pipeline.Workspace)/build/infrastructure/main.json"
