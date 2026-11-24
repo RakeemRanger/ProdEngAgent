@@ -1,0 +1,16 @@
+{
+    "prdEngAgent": {
+        "compliance": [
+            {
+                "cognitiveServices" :[
+                    {
+                        "policyName": "BlockFoundryLocalAuth",
+                        "type": "custom",
+                        "policyDisplayName": "Ranger AI Compliance - Local Auth Prohibited for any AI Usage, use Managed Identity"
+                    }
+                ]
+            }
+
+            ]
+    }
+}
