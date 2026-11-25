@@ -22,5 +22,5 @@ stages:
         displayName: Publish infra artifact
         inputs:
           TargetPath: $(Build.SourcesDirectory)/dist/infra/
-          publishLocation: FilePath
           ArtifactName: infrastructure
+          publishLocation: pipeline
