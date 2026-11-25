@@ -1,11 +1,10 @@
 import shutil
-import argparse
 import subprocess
 import sys
 from pathlib import Path
 
 PROJECT_DIR = Path(__file__).resolve().parents[2]
-SOURCE_DIR = PROJECT_DIR / "src" / "infra"
+SOURCE_DIR = PROJECT_DIR / "infra"
 
 DEST_DIR = PROJECT_DIR / "dist" / "infra"
 DEST_FILE = str(f'{DEST_DIR}/main.json')
