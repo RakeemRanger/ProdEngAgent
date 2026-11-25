@@ -21,6 +21,6 @@ stages:
       - task: PublishBuildArtifacts@1
         displayName: Publish infra artifact
         inputs:
-          TargetPath: $(Build.SourcesDirectory)/dist/infra/
+          TargetPath: $(Build.SourcesDirectory)/dist/infra
           ArtifactName: infrastructure
           publishLocation: pipeline
