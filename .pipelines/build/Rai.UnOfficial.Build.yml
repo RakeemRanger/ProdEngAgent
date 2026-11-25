@@ -17,7 +17,7 @@ steps:
       python3 .pipelines/build/build.py
       test -s dist/infra/main.json
     workingDirectory: $(Build.SourcesDirectory)
-    displayName: Build Dependancy Install
+    displayName: RAI Controlled Code Flow Build
 
   - script: |
       set -euo pipefail
@@ -33,7 +33,7 @@ steps:
     displayName: Generate SBOM
 
   - task: PublishPipelineArtifact@1
-    displayName: Publish infrastructure artifact
+    displayName: Publish Artifact
     inputs:
       targetPath: $(Build.SourcesDirectory)/dist/infra
       artifact: infrastructure

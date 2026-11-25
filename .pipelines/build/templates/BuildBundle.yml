@@ -1,2 +1,3 @@
+name: RAI CCF Build Bundle
 steps:
   - script: az bicep install
