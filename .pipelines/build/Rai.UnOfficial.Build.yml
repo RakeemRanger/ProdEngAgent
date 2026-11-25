@@ -25,7 +25,7 @@ steps:
       chmod +x "$(Agent.TempDirectory)/sbom-tool"
       "$(Agent.TempDirectory)/sbom-tool" generate \
         -b "$(Build.SourcesDirectory)/dist/infra" \
-        -bc "$(Build.SourcesDirectory)/src/infra" \
+        -bc "$(Build.SourcesDirectory)/infra" \
         -pn rai-infrastructure \
         -pv "$(Build.BuildId)" \
         -ps "Ranger AI" \
