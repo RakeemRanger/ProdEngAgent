@@ -3,15 +3,20 @@ name: Ranger-AI-Unofficial-Build-$(Date:yyyyMMdd)$(Rev:.r)
 trigger: none
 pr: none
 
+
 pool:
   vmImage: ubuntu-latest
 
 steps:
   - checkout: self
 
+  - template: .pipelines/build/templates/BuildBundle.yml
+    
+
+  - task: SonarQubeAnalyze@8
+
   - script: |
       set -euo pipefail
-      az bicep install
       python3 .pipelines/build/build.py
       test -s dist/infra/main.json
     workingDirectory: $(Build.SourcesDirectory)
