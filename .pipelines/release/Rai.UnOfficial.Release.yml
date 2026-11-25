@@ -4,7 +4,7 @@ pr: none
 resources:
   pipelines:
     - pipeline: build
-      source: 'RakeemRanger.ProdEngAgent (3)'
+      source: 'RakeemRanger.ProdEngAgent'
       trigger: none
 
 stages:
