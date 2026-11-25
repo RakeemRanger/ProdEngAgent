@@ -10,17 +10,14 @@ pool:
 steps:
   - checkout: self
 
-  - template: .pipelines/build/templates/BuildBundle.yml
-    
-
-  - task: SonarQubeAnalyze@8
+  - template: templates/BuildBundle.yml
 
   - script: |
       set -euo pipefail
       python3 .pipelines/build/build.py
       test -s dist/infra/main.json
     workingDirectory: $(Build.SourcesDirectory)
-    displayName: Build infrastructure
+    displayName: Build Dependancy Install
 
   - script: |
       set -euo pipefail
