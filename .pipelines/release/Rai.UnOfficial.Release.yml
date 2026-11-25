@@ -22,6 +22,18 @@ stages:
 
                 - download: build
                   artifact: infrastructure
+                
+                - task: AzureCLI@2
+                  displayName: PreFlight Validation
+                  inputs:
+                    azureSubscription: 'rai-ccf-arm-dev'
+                    scriptType: bash
+                    scriptLocation: inlineScript
+                    inlineScript: |
+                        set -euo pipefail
+                        az deployment sub what-if \
+                        --location eastus \
+                        --template-file "$(Pipeline.Workspace)/build/infrastructure/main.json"
 
                 - task: AzureCLI@2
                   displayName: Deploy ARM template
