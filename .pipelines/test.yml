@@ -1,0 +1,25 @@
+name: TestPipeline
+
+trigger: none
+pr: none
+
+stages:
+- stage: Build
+  jobs:
+  - job: BuildInfra 
+    steps:
+      - checkout: self
+
+      - script: |
+          set -euo pipefail
+          az bicep install
+          python3 .pipelines/build/build.py
+          test -s dist/infra/main.json
+        workingDirectory: $(Build.SourcesDirectory)
+        displayName: Build infrastructure
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          TargetPath: $(Build.SourcesDirectory)/dist/infra/
+          publishLocation: pipeline
+          ArtifactName: infrastructure
