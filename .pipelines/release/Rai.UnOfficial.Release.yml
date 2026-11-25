@@ -4,7 +4,7 @@ pr: none
 resources:
   pipelines:
     - pipeline: build
-      source: 'RakeemRanger.ProdEngAgent'
+      source: '\ProdEngAgent\build\Rai.UnOfficial.Build'
       trigger: none
 
 stages:
